@@ -49,6 +49,26 @@ class Tree {
             return this.includes(value, root.right);
         }
     }
+
+    insert(value, root = this.root) {
+        if (value === root.value) return;
+
+        if (value < root.value) {
+            if (!root.left) {
+                root.left = new Node(value);
+                return;
+            }
+
+            this.insert(value, root.left);
+        } else if (value > root.value) {
+            if (!root.right) {
+                root.right = new Node(value);
+                return;
+            }
+
+            this.insert(value, root.right);
+        }
+    }
 }
 
 
