@@ -27,7 +27,16 @@ class Tree {
 }
 
 function buildTree(arr) {
-    return arr;
+    if (arr.length === 0) return null;
+    if (arr.length === 1) return new Node(arr[0]);
+
+    const mid = Math.floor((arr.length - 1) / 2);
+    let root = new Node(arr[mid]);
+
+    root.left = buildTree(arr.slice(0, mid));
+    root.right = buildTree(arr.slice(mid + 1));
+    
+    return root;
 }
 
 let t = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
