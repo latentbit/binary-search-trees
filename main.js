@@ -37,10 +37,22 @@ class Tree {
         
         return root;
     }
+
+    includes(value, root = this.root) {
+        if (!root) return false;
+
+        if (value === root.value) {
+            return true;
+        } else if (value < root.value) {
+            return this.includes(value, root.left);
+        } else if (value > root.value) {
+            return this.includes(value, root.right);
+        }
+    }
 }
 
 
 
 let t = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-console.log(t)
+console.log(t, t.includes(324))
