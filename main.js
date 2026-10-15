@@ -24,7 +24,7 @@ class Tree {
 
         return deduplicated;
     }
-    
+
     buildTree(arr) {
         if (arr.length === 0) return null;
         if (arr.length === 1) return new Node(arr[0]);
@@ -69,10 +69,46 @@ class Tree {
             this.insert(value, root.right);
         }
     }
+
+    // Hello I've come back to coding after abandoning it for
+    // a month because I couldn't solve this deleteItem
+    // function. Today I have decided to wrestle with it again.
+    // (is anyone gonna see this?)
+
+    deleteItem(value, current = this.root) {
+        if (current === null) return null;
+
+        if (value < current.value) {
+            current.left = this.deleteItem(value, current.left);
+        } else if (value > current.value) {
+            current.right = this.deleteItem(value, current.right);
+        } else {
+            if (current.left === null) {
+                return current.right;
+
+            } else if (current.right === null) {
+                return current.left;
+
+            } else {
+                const succ = findSuccessor(current);
+                current.value = succ.value;
+
+                current.right = this.deleteItem(succ.value, current.right);
+            }
+        }
+
+        return current;
+    }
 }
 
-
+function findSuccessor(current) {
+    current = current.right;
+    while (current.left !== null) {
+        current = current.left;
+    }
+    return current;
+}
 
 let t = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-console.log(t, t.includes(324))
+console.log(t, t.deleteItem(4))
