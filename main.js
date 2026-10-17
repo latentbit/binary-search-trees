@@ -99,6 +99,65 @@ class Tree {
 
         return current;
     }
+
+    levelOrderForEach(callback, current = this.root, queue = []) {
+        if (!current) return;
+
+        if (current.left !== null) {
+            queue.push(current.left);
+        } if (current.right !== null) {
+            queue.push(current.right);
+        }
+
+        callback(current);
+
+        levelOrderForEach(callback, queue[0], queue.slice(1));
+    }
+
+    inOrderForEach(callback, current = this.root) {
+        if (!current) return;
+        if (typeof callback !== "function") throw new Error("Provide a function!");
+
+        if (current.left !== null) {
+            this.inOrderForEach(callback, current.left);
+        } 
+
+        callback(current);
+
+        if (current.right !== null) {
+            this.inOrderForEach(callback, current.right);
+        }
+    }
+
+    preOrderForEach(callback, current = this.root) {
+        if (!current) return;
+        if (typeof callback !== "function") throw new Error("Provide a function!");
+
+        callback(current);
+
+        if (current.left !== null) {
+            this.preOrderForEach(callback, current.left);
+        }
+        
+        if (current.right !== null) {
+            this.preOrderForEach(callback, current.right);
+        }
+    }
+
+    postOrderForEach(callback, current = this.root) {
+        if (!current) return;
+        if (typeof callback !== "function") throw new Error("Provide a function!");
+
+        if (current.left !== null) {
+            this.postOrderForEach(callback, current.left);
+        }
+        
+        if (current.right !== null) {
+            this.postOrderForEach(callback, current.right);
+        }
+
+        callback(current);
+    }
 }
 
 function findSuccessor(current) {
