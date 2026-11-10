@@ -158,6 +158,27 @@ class Tree {
 
         callback(current);
     }
+
+    height(current) {
+        if (current === null) return -1;
+        let left = this.height(current.left) + 1;
+        let right = this.height(current.right) + 1;
+        return (left > right) ? left : right;
+    }
+
+
+}
+
+function findNode(value, current = this.root) {
+    if (current === null) return null;
+    
+    if (value < current.value) {
+        return findNode(current.left);
+    } else if (value > current.value) {
+        return findNode(current.right);
+    } else {
+        return current;
+    }
 }
 
 function findSuccessor(current) {
@@ -170,4 +191,4 @@ function findSuccessor(current) {
 
 let t = new Tree([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 
-console.log(t, t.deleteItem(4))
+console.log(t, t.height(4))
